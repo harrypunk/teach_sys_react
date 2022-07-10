@@ -7,19 +7,25 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function Summary() {
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
+      <Title>近期帖数</Title>
       <Typography component="p" variant="h4">
-        $3,024.00
+        263
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
+        on 15 March, 2022
+      </Typography>
+      <Typography  sx={{ flex: 1 }}>
+        语文: 210
+      </Typography>
+      <Typography  sx={{ flex: 1 }}>
+        English: 53
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
+          more
         </Link>
       </div>
     </React.Fragment>
