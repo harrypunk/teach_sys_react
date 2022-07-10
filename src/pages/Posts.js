@@ -11,12 +11,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
+import { getMask, posts, ALL, postTypeMap } from "./post-data";
+
 export default function Posts() {
   const [postType, setPostType] = useState(ALL);
   return (
     <div>
       <PostTypeControl mask={postType} handleChange={setPostType} />
-      <PostItem summary={"one"} details={"lf teacher"} />
+      {posts
+        .filter((p) => p.mask & postType)
+        .map((p) => (
+          <PostItem key={p.id} summary={p.summary} details={p.details} />
+        ))}
     </div>
   );
 }
@@ -29,27 +35,13 @@ function PostItem({ summary, details }) {
         aria-controls="post-content"
         id="post-header"
       >
-        <Typography>summary</Typography>
+        <Typography>{summary}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>details</Typography>
+        <Typography>{details}</Typography>
       </AccordionDetails>
     </Accordion>
   );
-}
-
-const ALL = 0b111;
-const TEACHER = 0b010;
-const STUDENT = 0b001;
-
-const postTypeMap = {
-  [ALL]: "all",
-  [TEACHER]: "teacher",
-  [STUDENT]: "student",
-};
-
-function getMask(val) {
-  return Object.keys(postTypeMap).find((key) => postTypeMap[key] === val);
 }
 
 function PostTypeControl({ mask, handleChange }) {
@@ -65,8 +57,8 @@ function PostTypeControl({ mask, handleChange }) {
         }}
       >
         <FormControlLabel control={<Radio />} label="全部" value="all" />
-        <FormControlLabel control={<Radio />} label="学生" value="teacher" />
-        <FormControlLabel control={<Radio />} label="教师" value="student" />
+        <FormControlLabel control={<Radio />} label="学生" value="student" />
+        <FormControlLabel control={<Radio />} label="教师" value="teacher" />
       </RadioGroup>
     </FormControl>
   );
